@@ -3,5 +3,5 @@ from django.contrib.auth.models import User
 from .models import Login
 class LoginForm(forms.ModelForm):
     class Meta:
-        model=User
-        fields=['username','password']
+        model=Login
+        fields=['u_id','u_pw']
