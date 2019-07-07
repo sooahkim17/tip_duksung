@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<h1 id="info1">Tip방</h1>
+{% if user.is_authenticated %}
+<button id="info1" style="margin-left:85%;" type="button" class="btn btn-outline-secondary"><a href="{% url 'post' %}">글 작성하러 가기</a></button>
+{% if user.is_authenticated %}
+<table id="info1" class="table">
+    <thead>
+        <tr>
+        <th>No.</th>
+        <th>제목</th>
+        <th>내용</th>
+        <th>등록일</th>
+        <th>조회수</th>
+        
+        </tr>
+    </thead>
+ <tbody>
+     {% if total_list%}
+     {%for tip in total_list %}
+     <tr>  
+
+        <td>{{tip.id}}</td>
+       <td><a href="{% url 'detail' tip.id %}">
+            {{tip.title}}
+        </a></td>
+        
+        <td>{{tip.body}}</td>
+       <td><small class="text-muted">{{tip.update_date}}</small></td>
+        <td><small>{{tip.hit}}</small></td>
+      
+
+        </tr>
+
+        {%endfor%}
+    {% endif %}
+
+ </tbody>
+
+
+</table>
+{% else %}
+<a href='{%url "login"%}'>로그인</a>
+
+{%endif%}
+<hr>
+
+
+
+
+<div id="info1" class="page_display">
+  <!-- 
+      mathfilters 를 사용하려면
+      1. pip install django-mathfilters
+      2. settings.py 에 INSTALLED_APPS 에 'mathfilters' 추가
+      3. 아래에 로딩 표현식 추가
+   -->
+   <nav id="info1" aria-label="Page navigation example">
+    <ul id="info1" class="pagination">
+  {% load mathfilters %}
+  {% if startPageNum != 1 %}
+  <li id="info1" class="page-item"> <a class="page-link" href="?pageNum={{startPageNum|sub:1}}">[이전]</a></li>
+  {% else %}
+  <li id="info1" class="page-item"> <a class="page-link" href="javascript:;" class="muted">[이전]</a></li>
+  {% endif %}
+  
+  {% for i in bottomPages %}
+      {% if i == pageNum %}
+      <li id="info1" class="page-item">   <a class="page-link" href="?pageNum={{i}}">{{ i}}</a></li>
+      {% else %}
+      <li id="info1" class="page-item"> <a class="page-link" href="?pageNum={{i}}">{{ i}}</a></li>
+      {% endif %}
+     
+  {% endfor %}
+  
+  
+  
+  {% if toPageCount > endPageNum %}
+  <li id="info1" class="page-item">  <a class="page-link" href="?pageNum={{endPageNum | add:1}}">[다음]</a></li>
+  {% else %}
+  <li id="info1" class="page-item">  <a class="page-link" href="javascript:;" class="muted">[다음]</a></li>
+  {% endif %}
+  </ul>
+  </nav>
+</div>
+<form id="info1" action="{%url 'logout'%}" method="POST">
+        {% csrf_token %}
+<input id="info1" type="submit" value="로그아웃">
+</form>
+{%endif%}
